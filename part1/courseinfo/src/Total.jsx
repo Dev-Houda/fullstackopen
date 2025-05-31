@@ -1,11 +1,17 @@
 import React from "react";
+import Part from "./Part";
 
 const Total = (props) => {
+  let total = 0;
+
+  props.parts.map((part) => {
+    total += part.exercises;
+  });
+
   return (
-    <p>
-      Number of exercises{" "}
-      {props.exercises1 + props.exercises2 + props.exercises3}
-    </p>
+    <div>
+      <p>Number of exercises: {total} </p>
+    </div>
   );
 };
 
