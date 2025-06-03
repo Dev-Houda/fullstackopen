@@ -5,12 +5,18 @@ const Statistics = ({ good, neutral, bad }) => {
   let positive = (good / (good + neutral + bad)) * 100;
   return (
     <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {good + bad + neutral}</p>
-      <p>average {average ? average : 0}</p>
-      <p>positive {positive ? positive : 0} %</p>
+      {good || neutral || bad ? (
+        <div>
+          <p>good {good}</p>
+          <p>neutral {neutral}</p>
+          <p>bad {bad}</p>
+          <p>all {good + bad + neutral}</p>
+          <p>average {average ? average : 0}</p>
+          <p>positive {positive ? positive : 0} %</p>{" "}
+        </div>
+      ) : (
+        "No feedback given"
+      )}
     </div>
   );
 };
