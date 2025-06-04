@@ -2,15 +2,15 @@ import React from "react";
 
 const Total = ({ courseParts }) => {
   let total = 0;
-
-  courseParts.map((part) => {
-    total += part.exercises;
-  });
+  const totalEx = courseParts.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.exercises,
+    total
+  );
 
   return (
     <div>
       <p>
-        <strong>total of {total} exercises</strong>
+        <strong>total of {totalEx} exercises</strong>
       </p>
     </div>
   );
