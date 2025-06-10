@@ -45,6 +45,14 @@ const App = () => {
     setNewNumber("");
   };
 
+  const deletePerson = (id) => {
+    personService.del(id).then((response) => {
+      confirm(`Delete ${response.data.name}`);
+      console.log("deleted");
+      window.location.reload();
+    });
+  };
+
   const personsToShow = persons.filter((person) =>
     person.name.toLowerCase().includes(filter.toLowerCase())
   );
@@ -62,7 +70,7 @@ const App = () => {
         handleNewNumberChange={handleNewNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow} deletePerson={deletePerson} />
     </div>
   );
 };
