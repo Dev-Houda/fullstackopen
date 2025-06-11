@@ -27,14 +27,29 @@ const App = () => {
     setFilter(event.target.value);
   };
 
-  const addPerson = (event) => {
-    event.preventDefault();
+  const addPerson = (e) => {
+    e.preventDefault();
     const personObject = {
       name: newName,
       number: newNumber,
     };
     if (persons.some((e) => e.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+      let personId = persons.find((person) => person.name === newName);
+      let updatedEntry = Object.assign(personId, personObject);
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        personService.update(personId.id, personObject).then(() => {
+          setPersons(
+            persons.map((person) =>
+              person.name === newName ? updatedEntry : person
+            )
+          );
+          console.log(`User ${newName} phone number updated`);
+        });
+      }
     } else {
       personService.create(personObject).then((response) => {
         setPersons(persons.concat(response.data));
