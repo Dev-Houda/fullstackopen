@@ -9,6 +9,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [notification, setNotification] = useState("");
 
   useEffect(() => {
     personService.getAll().then((response) => {
@@ -48,6 +49,10 @@ const App = () => {
             )
           );
           console.log(`User ${newName} phone number updated`);
+          setNotification(`Updated ${personObject.name} phone number.`);
+          setTimeout(() => {
+            setNotification("");
+          }, 5000);
         });
       }
     } else {
@@ -58,6 +63,10 @@ const App = () => {
 
     setNewName("");
     setNewNumber("");
+    setNotification(`Added ${personObject.name}.`);
+    setTimeout(() => {
+      setNotification("");
+    }, 5000);
   };
 
   const deletePerson = (id) => {
@@ -77,6 +86,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h2>add a new</h2>
+      {notification ? <div className="notification">{notification}</div> : ""}
       <PersonForm
         addPerson={addPerson}
         newName={newName}
